@@ -1313,14 +1313,13 @@ function handleMouseMove(e) { //マウス座標取得
 		 },
 		 // open callback
 		 () => {
-			 $(".btn").css({ "z-index": 2 });
+			 $(".btn").css({ "z-index": 999 });
 			 $("#appCanvas").css({ "z-index": 0 });
 	
 			 $("#divBody").css({"position" : "absolute"})
 			 $("#divBody").css({"z-index": 3 })
 			 buttonPopUp.src = buttonSrc.PopUpOn;
-			 buttonMove.src = buttonSrc.move_normal;
-			buttonRoll.src = buttonSrc.roll_normal;
+	
 
 
 		 },
@@ -1333,8 +1332,7 @@ function handleMouseMove(e) { //マウス座標取得
 			 $("#divBody").css({"z-index": 0 })
 
 			 buttonPopUp.src = buttonSrc.PopUpNormal;
-			 buttonMove.src = buttonSrc.move_normal;
-			 buttonRoll.src = buttonSrc.roll_normal;
+			 
 
 		 }
 	 );
