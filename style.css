@@ -1,0 +1,145 @@
+
+@charset "UTF-8";
+
+/* @-ms-viewport { width: auto; initial-scale: 1; user-zoom: fixed; }
+@viewport { width: device-width; initial-scale: 1; user-zoom: fixed; } */
+
+html {
+    touch-action: none;
+    -ms-touch-action: none;
+}
+
+.refuseusel {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  -ms-content-zooming: none;
+  -ms-overflow-style: none;
+  /* */
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+body {
+  font-family: Osaka-等幅, 'ＭＳ ゴシック', 'MS Gothic', monospace;
+  padding: 0;
+  margin: 0 auto;
+  -webkit-touch-callout:none;  /*リンク長押しのポップアップを無効化*/
+  -webkit-user-select:none;  /*テキスト長押しの選択ボックスを無効化*/
+  overflow:hidden;
+}
+
+#stage_0 {
+  position: relative;
+  width: 1280px;
+  height: 960px;
+  margin: 0 auto;
+  /* overflow: hidden; */
+}
+
+#stage_1 {
+  position: relative;
+  width: 1278px;
+  height: 958px;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+}
+
+/*--------- 上記共通 --------------*/
+
+/* 質問位置 */
+/* img{position: absolute; left: 5%; top: 5%; width: 30%;height: auto;z-index: 10;} */
+/* img{position: absolute; width: 40%;height: auto; left: 5px; z-index: 10;} */
+
+.question {
+    position: absolute;
+    top: 2%;
+    left: 5%;
+    /* width: 40vmax; */
+    height: auto;
+    z-index: 3;
+}
+
+
+#myCanvas{
+  /* overflow:hidden; */
+  position: absolute;
+  z-index: 4;
+
+}
+
+
+/* ボタン位置 */
+.btn {
+    position: absolute;
+    /* width: 20vmin; */
+    /* top: 80vmin; */
+    height: auto;
+    top: 600px;
+    /* margin-top: -5vw; */
+    left: 80%;
+    /* text-align: right; */
+    border: none;
+    z-index: 5;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+    -webkit-touch-callout:none;  /*リンク長押しのポップアップを無効化*/
+    -webkit-user-select:none;  /*テキスト長押しの選択ボックスを無効化*/
+}
+
+#redo:focus {
+	outline:none;
+}
+#move:focus {
+	outline:none;
+}
+#roll:focus {
+	outline:none;
+}
+
+#btn_roll{
+  position: relative;
+  z-index: 55;
+}
+
+#stage_0 {
+  width: 1280px;
+  height: 960px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+#stage_1 {
+  width: 1278px;
+  height: 958px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.22);
+}
+
+/* #button_reset{
+  position: relative;
+
+}
+
+#button_open{
+  position: absolute;
+  bottom: 19vmin;
+}
+
+#button_assemble{
+  position: absolute;
+  bottom:8vmin;
+} */
+
+/* position: p
+x: 10.309371483991665
+y: -2.805641559869284
+z: 1011.1309733338346
+
+x: 0.5897424643892686
+y: -0.7542669978533417
+z: 0.2885916174204232 */

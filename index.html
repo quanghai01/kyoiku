@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"/> -->
+
+    <title>S3-31</title>
+
+    <!-- スタイルシート読み込み -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- ライブラリ読み込み -->
+    <script type="text/javascript" src="lib/jquery-3.3.1.js"></script>
+
+    <script>
+    	//画面解像度を固定
+      var viewportContent = '';
+      if (window.devicePixelRatio = 1) {
+        viewportContent = 'width=device-width, initial-scale=0.51, maximum-scale=0.51, user-scalable=0, target-densityDpi=device-dpi';
+      } else if (window.devicePixelRatio == 2) {
+        viewportContent = 'width=device-width, initial-scale=0.51, maximum-scale=0.51, user-scalable=0';
+      } else if (window.devicePixelRatio == .78) {
+        viewportContent = 'width=device-width, initial-scale=0.51, maximum-scale=0.51, user-scalable=0, target-densityDpi=device-dpi';
+      } else if (window.devicePixelRatio == 1.5) {
+        viewportContent = 'width=device-width, initial-scale=0.51, maximum-scale=0.51, user-scalable=0, target-densityDpi=device-dpi';
+      }else{
+        viewportContent = 'width=device-width, initial-scale=0.51, maximum-scale=0.51, user-scalable=0, target-densityDpi=device-dpi';
+      }
+      $('head').append('<meta name="viewport" content="' + viewportContent + '">');
+    </script>
+
+    <script type="text/javascript" src="lib/fflcom_userApp_init.js" defer></script>
+    <script type="text/javascript" src="lib/three.min.js" defer></script>
+    <script type="text/javascript" src="lib/TrackballControls.js" defer></script>
+    <script type="text/javascript" src="lib/DragControls.js" defer></script>
+    <script type="text/javascript" src="lib/TransformControls.js" defer></script>
+    <script type="text/javascript" src="lib/THREE.MeshLine.js" defer></script>
+
+
+
+  </head>
+  <body>
+    <div id="stage_0">
+      <div id="stage_1">
+            <canvas id="appCanvas" width="1280" height="960"></canvas>
+                <div class="btn"> 
+                  <div onclick="clickRoll()" id="btn_roll"><input id="roll" type=image src="image/roll_normal.png"  width="240" unselectable="on"></input></div>
+                  <div onclick="clickMove()"><input id="move" type=image src="image/move_normal.png"" width="240" unselectable="on"></input></div>
+                  <div onclick="clickRedo()"><input id="redo" type=image src="image/redo.png" width="240" unselectable="on"></input></div>
+                </div>
+      </div>
+      <canvas id="Mycanvas" width="1280" height="960" style="background-color: rgba(255,255,255,0.0);position: absolute;display:block;top:0;"></canvas>
+    </div>
+  </body>
+    <!-- スクリプト読み込み -->
+    <script type="text/javascript" src="js/main.js" defer></script>
+    <script src="./js/ffl-pallet.js" defer></script>
+    <script type="text/javascript" src="lib/ffl-scaleAdjuster-1.0.1.min.js" defer></script>
+
+</html>
