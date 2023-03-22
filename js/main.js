@@ -1317,7 +1317,7 @@ function handleMouseMove(e) { //マウス座標取得
 			 $("#appCanvas").css({ "z-index": 0 });
 	
 			 $("#divBody").css({"position" : "absolute"})
-			 $("#divBody").css({"z-index": 3 })
+			//  $("#divBody").css({"z-index": 3 })
 			 buttonPopUp.src = buttonSrc.PopUpOn;
 	
 
@@ -1329,7 +1329,7 @@ function handleMouseMove(e) { //マウス座標取得
 			 $("#appCanvas").css({ "z-index": 1 });
 
 			 $("#divBody").css({"position" : "relative"})
-			 $("#divBody").css({"z-index": 0 })
+			//  $("#divBody").css({"z-index": 0 })
 
 			 buttonPopUp.src = buttonSrc.PopUpNormal;
 			 
