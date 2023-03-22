@@ -31,19 +31,11 @@ body {
   overflow:hidden;
 }
 
-#stage_0 {
-  position: relative;
-  width: 1280px;
-  height: 960px;
-  margin: 0 auto;
-  /* overflow: hidden; */
-}
+
 
 #stage_1 {
-  position: relative;
-  width: 1278px;
-  height: 958px;
-  border: 1px solid rgba(0, 0, 0, 0.22);
+  width: 1478px;
+    height: 998px;
 }
 
 /*--------- 上記共通 --------------*/
@@ -106,18 +98,17 @@ body {
 }
 
 #stage_0 {
-  width: 1280px;
+  width: 1480px;
   height: 960px;
   margin: 0 auto;
   overflow: hidden;
 }
 
 #stage_1 {
-  width: 1278px;
+  width: 1478px;
   height: 958px;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.22);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.22);
+
 }
 
 /* #button_reset{
