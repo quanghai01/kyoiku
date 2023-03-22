@@ -1328,7 +1328,7 @@ function handleMouseMove(e) { //マウス座標取得
 			 $(".btn").css({ "z-index": 2 });
 			 $("#appCanvas").css({ "z-index": 1 });
 
-			 $("#divBody").css({"position" : "relative"})
+			 $("#divBody").css({"position" : "absolute"})
 			//  $("#divBody").css({"z-index": 0 })
 
 			 buttonPopUp.src = buttonSrc.PopUpNormal;
