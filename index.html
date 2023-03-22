@@ -43,12 +43,19 @@
   <body>
     <div id="stage_0">
       <div id="stage_1">
+        <div class="contbase">
+          <div class="stagebase">
             <canvas id="appCanvas" width="1280" height="960"></canvas>
                 <div class="btn"> 
+                  <input type=image src="./btn_pop-up_normal.png" width="240" id="button_pop_up"></input><br>
+
                   <div onclick="clickRoll()" id="btn_roll"><input id="roll" type=image src="image/roll_normal.png"  width="240" unselectable="on"></input></div>
                   <div onclick="clickMove()"><input id="move" type=image src="image/move_normal.png"" width="240" unselectable="on"></input></div>
                   <div onclick="clickRedo()"><input id="redo" type=image src="image/redo.png" width="240" unselectable="on"></input></div>
                 </div>
+
+          </div>
+        </div>
       </div>
       <canvas id="Mycanvas" width="1280" height="960" style="background-color: rgba(255,255,255,0.0);position: absolute;display:block;top:0;"></canvas>
     </div>

@@ -47,7 +47,7 @@ const initState = (info, openCB, closeCB) => {
         show_popup: false,
         delete_mode: false,
 
-        screen_width: 1480,
+        screen_width: 1280,
         screen_height: 1000,
 
         controls: [
