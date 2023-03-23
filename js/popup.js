@@ -104,8 +104,8 @@ const initState = (info, openCB, closeCB) => {
                     height: 232,
                     min_visible_x: 0.5 * 992,
                     min_visible_y: 0.5 * 232,
-                    init_x: 244,
-                    init_y: 330.16,
+                    init_x: 150,
+                    init_y: 230.16,
                 },
                 info,
                 fn_drag: function ({ value, eventName }) {
@@ -174,7 +174,7 @@ const initState = (info, openCB, closeCB) => {
                             ty = scopeTy[0];
                             // console.log("meet bounding ty max");
                         }
-
+                      
                         getEl("#popup-content").attr("transform", `translate(${tx} ${ty})`);
                     }
                 },

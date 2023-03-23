@@ -1331,14 +1331,13 @@ $(document).ready(function () {
 		 },
 		 // open callback
 		 () => {
-			 $(".btn").css({ "z-index": 2 });
-			 $("#appCanvas").css({ "z-index": 0 });
+			 $(".btn").css({ "z-index": 0 });
+			 $("#appCanvas").css({ "z-index": -1 });
 	
 			 $("#divBody").css({"position" : "absolute"})
-			 $("#divBody").css({"z-index": 3 })
+			 $("#popup-content").css({"z-index": 3 })
 			 buttonPopUp.src = buttonSrc.PopUpOn;
-			 buttonMove.src = buttonSrc.move_normal;
-			buttonRoll.src = buttonSrc.roll_normal;
+	
 
 
 		 },
@@ -1351,8 +1350,7 @@ $(document).ready(function () {
 			 $("#divBody").css({"z-index": 0 })
 
 			 buttonPopUp.src = buttonSrc.PopUpNormal;
-			 buttonMove.src = buttonSrc.move_normal;
-			 buttonRoll.src = buttonSrc.roll_normal;
+			
 
 		 }
 	 );
@@ -1370,8 +1368,7 @@ $(document).ready(function () {
 		 switch (gEvent) {
 			 case "button_pop_up":
 				 openPopup();
-				 buttonMove.src = buttonSrc.move_normal;
-				 buttonRoll.src = buttonSrc.roll_normal;
+		
 
 				 break;
 			 
