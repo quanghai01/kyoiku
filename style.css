@@ -140,26 +140,6 @@ use[id*="-disabled"] {
   position: relative;
   top: 0;
 }
-/* #button_reset{
-  position: relative;
-
+#divBody {
+  display:none;
 }
-
-#button_open{
-  position: absolute;
-  bottom: 19vmin;
-}
-
-#button_assemble{
-  position: absolute;
-  bottom:8vmin;
-} */
-
-/* position: p
-x: 10.309371483991665
-y: -2.805641559869284
-z: 1011.1309733338346
-
-x: 0.5897424643892686
-y: -0.7542669978533417
-z: 0.2885916174204232 */

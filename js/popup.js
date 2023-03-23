@@ -986,31 +986,3 @@ const openPopup = () => {
     g_state.show_popup = true;
     getControl("btn-show-popup").render();
 };
-
-// example
-/*
-$(document).ready(function () {
-    setTimeout(() => {
-        // 1. init popup
-        initPoppup({
-            width: 992,
-            height: 232,
-            min_visible_x: 0.5 * 992,
-            min_visible_y: 0.5 * 232,
-            init_x: 244,
-            init_y: 330.16,
-        },
-        // open callback
-        () => {
-            $(".btn").css({ "z-index": -1 });
-        },
-        // close callback
-        () => {
-            $(".btn").css({ "z-index": 1 });
-        });
-
-        // 2. call openPopup
-        openPopup();
-    }, 20);
-});
-*/

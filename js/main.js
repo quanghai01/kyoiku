@@ -1291,7 +1291,16 @@ $(document).ready(function () {
 	 $("#button_pop_up").on("mousedown", function () {
 		 gEvent = "button_pop_up";
 	 });
-	 
+	 $("#btn_roll").on("mousedown", function () {
+		gEvent = "roll";
+	});
+	$("#move").on("mousedown", function () {
+		gEvent = "move";
+	});
+	$("#redo").on("mousedown", function () {
+		gEvent = "redo";
+	});
+	
 	
 
 	 $(document).on("mouseup", function () {
@@ -1301,8 +1310,21 @@ $(document).ready(function () {
 
 
 				 break;
-			 
-			 
+			case "roll":
+				clickRoll();
+
+
+				break;
+			case "redo":
+				clickRedo();
+
+
+				break;
+			case "move":
+				clickMove();
+
+
+				break;
 			 default:
 				 break;
 		 }
