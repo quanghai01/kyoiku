@@ -1347,7 +1347,7 @@ $(document).ready(function () {
 			 $(".btn").css({ "z-index": 2 });
 			 $("#appCanvas").css({ "z-index": 1 });
 
-			 $("#divBody").css({"position" : "relative"})
+			//  $("#divBody").css({"position" : "relative"})
 			 $("#divBody").css({"z-index": 0 })
 
 			 buttonPopUp.src = buttonSrc.PopUpNormal;
