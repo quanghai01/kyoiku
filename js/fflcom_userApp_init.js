@@ -6,6 +6,7 @@
     "use strict";
     $(function() {
         loadFFLSideBarConfigJs();
+
     });
 }(this, jQuery));
 
@@ -15,6 +16,7 @@ var getFFLPostMessage = function() {
         var arParam = _evt.originalEvent.data.split("[,]");
         if (arParam[0] === "FFLCOM_GET_SIDEBAR_CONFIG"){
             window.parent.postMessage("FFLCOM_POST_SIDEBAR_CONFIG"+"[,]"+JSON.stringify(userApp_sidebar_config),"*");
+            window.parent.postMessage("FFLCOM_GET_LEARNING_REC","*");
         }
     });
 };
@@ -40,6 +42,7 @@ var loadFFLSideBarConfigJs = function() {
             if ( head && script.parentNode ) {
                 head.removeChild( script );
             }
+
         }
     };
     

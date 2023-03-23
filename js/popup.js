@@ -100,12 +100,12 @@ const initState = (info, openCB, closeCB) => {
                 minimum: 0.001,
                 value: 0,
                 info_bak: {
-                    width: 992,
-                    height: 232,
-                    min_visible_x: 0.5 * 992,
-                    min_visible_y: 0.5 * 232,
-                    init_x: 244,
-                    init_y: 330.16,
+                    width: 1050,
+                    height: 300,
+                    min_visible_x: 0.5 * 1050,
+                    min_visible_y: 0.5 * 300,
+                    init_x: 110,
+                    init_y: 430.16,
                 },
                 info,
                 fn_drag: function ({ value, eventName }) {
@@ -174,8 +174,12 @@ const initState = (info, openCB, closeCB) => {
                             ty = scopeTy[0];
                             // console.log("meet bounding ty max");
                         }
-                        if(ty<=-400) ty=-400
-
+                        if(ty<=-450) {
+                            ty=-450
+                        }
+                        if(ty>=450) {
+                            ty=450
+                        }
 
                         getEl("#popup-content").attr("transform", `translate(${tx} ${ty})`);
                     }
@@ -986,3 +990,31 @@ const openPopup = () => {
     g_state.show_popup = true;
     getControl("btn-show-popup").render();
 };
+
+// example
+/*
+$(document).ready(function () {
+    setTimeout(() => {
+        // 1. init popup
+        initPoppup({
+            width: 992,
+            height: 232,
+            min_visible_x: 0.5 * 992,
+            min_visible_y: 0.5 * 232,
+            init_x: 244,
+            init_y: 330.16,
+        },
+        // open callback
+        () => {
+            $(".btn").css({ "z-index": -1 });
+        },
+        // close callback
+        () => {
+            $(".btn").css({ "z-index": 1 });
+        });
+
+        // 2. call openPopup
+        openPopup();
+    }, 20);
+});
+*/

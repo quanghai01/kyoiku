@@ -1,0 +1,158 @@
+@charset "UTF-8";
+
+@-ms-viewport { width: auto; initial-scale: 1; user-zoom: fixed; }
+@viewport { width: device-width; initial-scale: 1; user-zoom: fixed; }
+
+html {
+    touch-action: none;
+    -ms-touch-action: none;
+}
+body {
+	font-family: '遊ゴシック', 'YuGothic', 'メイリオ', 'Hiragino Kaku Gothic Pro', sans-serif;
+	width: 100%;
+	height: 100%;
+    margin: 0;
+}
+.refuseusel {
+    user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+    -ms-content-zooming: none;
+    -ms-overflow-style: none;
+    /* */
+    -ms-touch-action: none;
+    touch-action: none;
+}
+/*
+ * コンテンツ背景サイズは 800×600 (SVGA)
+ */
+#stage_0 {
+    width: 1280px;
+    height: 960px;
+	margin: 0 auto;
+}
+
+#stage_1 {
+    width: 1278px;       /* 800 - 1 × 2 */
+    height: 958px;      /* 600 - 1 × 2 */
+    border: 1px solid black;
+    background-color: white;
+}
+
+#contbase {
+	position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#Canvas {
+	position: absolute;
+    width: 100%;
+    height: 100%;
+	pointer-events: none;
+}
+
+#Mycanvas {
+    position: absolute;
+	width: 100%;
+    height: 100%;
+	z-index: 2144480000;
+	pointer-events: none;
+
+}
+
+.btnPN{
+    height:5%;
+    width:10%;
+    min-width: 50px;
+    margin:1%;
+    font-weight: bold;
+    background-color: #003350;
+    color: #FFFFFF;
+}
+
+#testText{
+    position: absolute;
+    width:80%;
+    height:100%;
+    left:10px;
+    pointer-events: none;
+    
+}
+
+#txtTestText{
+    width:100%;
+    border: 2px inset #999999;
+    margin: 2px;
+    font-size:10px;
+    resize:none;
+}
+
+#testCall{
+    position: absolute;
+	z-index: 2144481000;
+    width:80%;
+    height:10%;
+    top: 20%;
+    left:10px;
+    border: 1px solid #900;
+    padding: 2px;
+}
+
+#callText{
+    border: 2px inset #999999;
+}
+
+#testCall2{
+	z-index: 2144481000;
+    position: relative;
+    width:80%;
+    height:10%;
+    top: 33%;
+    left:10px;
+    border: 1px solid #900;
+    padding: 2px;
+}
+
+.callButton{
+    width:10%;
+    min-width: 50px;
+    margin:1%;
+    font-weight: bold;
+    background-color: #003350;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+#testParamText{
+    position: absolute;
+    width:40%;
+    bottom:5%;
+    left:10px;
+    pointer-events: none;
+    
+}
+
+#txtParameter{
+    width:100%;
+    border: 2px inset #999999;
+    margin: 2px;
+    font-size:10px;
+    resize:none;
+}
+
+#changeBackColor{
+    position: absolute;
+    bottom:5%;
+    right:5%;
+    width: 20%;
+    cursor: pointer;
+    
+}
+
+#changeBackColor img{
+    width: 100%;
+    height: auto;
+}
