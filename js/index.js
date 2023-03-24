@@ -1,4 +1,4 @@
-var CONTENT_W = 1600;
+var CONTENT_W = 1480;
 var CONTENT_H = 900;
 
 (function(global, $) {

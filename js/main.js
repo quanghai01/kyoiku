@@ -1,8 +1,8 @@
 
 var appId = "template";
 
-var CONTENT_W = 1280;
-var CONTENT_H = 960;
+var CONTENT_W = 1480;
+var CONTENT_H = 1000;
 
 var old_X, old_Y, new_X, new_Y;
 
@@ -558,3 +558,84 @@ var loadLocusLog = function (_locusLog) {
 		cCtx.stroke();
 	});
 };
+
+
+var buttonSrc = {
+
+	// PopUpNormal: "images/btn_pop-up_normal.png",
+	//    PopUpOn: "images/btn_pop-up_on.png",
+	   PopUpNormal: "images/off.png",
+	   PopUpOn: "images/on.png",
+  
+  }
+
+
+  $(document).ready(function () {
+		setTimeout(function () {
+		$(".btn").css("display","block")
+	  }, 50);
+	const buttonPopUp = document.getElementById("button_pop_up");
+ 
+ setTimeout(() => {
+	 // 1. init popup
+
+	 initPoppup(
+		 {
+			 width: 992,
+			 height: 500,
+			 min_visible_x: 0.5 * 992,
+			 min_visible_y: 0.5 * 232,
+			 init_x: 244,
+			 init_y: 330.16,
+		 },
+		 // open callback
+		 () => {
+			 $(".btn").css({ "z-index": 2 });
+			 $("#appCanvas").css({ "z-index": 0 });
+	
+			 $("#divBody").css({"position" : "absolute"})
+			 $("#divBody").css({"z-index": 3 })
+			 buttonPopUp.src = buttonSrc.PopUpOn;
+
+
+
+		 },
+		 // close callback
+		 () => {
+			 $(".btn").css({ "z-index": 2 });
+			 $("#appCanvas").css({ "z-index": 1 });
+
+			 $("#divBody").css({"position" : "relative"})
+			 $("#divBody").css({"z-index": 0 })
+
+			 buttonPopUp.src = buttonSrc.PopUpNormal;
+
+
+		 }
+	 );
+
+	 initDragEvent(_.flattenDeep(["Mycanvas", "appCanvas"]));
+
+	 let gEvent = "";
+	 $("#button_pop_up").on("mousedown", function () {
+		 gEvent = "button_pop_up";
+	 });
+	 
+	
+
+	 $(document).on("mouseup", function () {
+		 switch (gEvent) {
+			 case "button_pop_up":
+				 openPopup();
+
+				 break;
+			 
+			 
+			 default:
+				 break;
+		 }
+
+		 gEvent = "";
+	 });
+ }, 20);
+});
