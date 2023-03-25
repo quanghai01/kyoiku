@@ -594,7 +594,6 @@ $(document).ready(function () {
         let prev = { x: 0, y: 0 };
         let fnDrag = (event, isSnap, eventName, isKeepCheckDist) => {
             g_latestMousePress = ctrl.id || ctrl.class;
-            console.log("fnDrag", ctrl.name);
             event.stopPropagation();
 
             const [x0, x1] = ctrl.x_scope || [];
@@ -871,8 +870,7 @@ $(document).ready(function () {
     // applyControlChange(true);
 
     $(document).on("mouseup", async function (e) {
-        g_isMouseDown = false;
-        console.log("g_latestMousePress mouseup", g_latestMousePress);
+        g_isMouseDown = false; 
 
         let ctrl = g_state.controls.find((c) => c.id == g_latestMousePress || c.class == g_latestMousePress);
         if (ctrl) {
@@ -981,9 +979,7 @@ const applyControlChange = (isSkipCache) => {
     if (controlValues == controlValuesPrev && !isSkipCache) {
         return;
     }
-    controlValuesPrev = controlValues;
-
-    console.log("applyControlChange");
+    controlValuesPrev = controlValues; 
 };
 
 const openPopup = () => {

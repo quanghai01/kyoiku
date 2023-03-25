@@ -1,11 +1,11 @@
 ﻿#stage_0 {
-  width: 1280px;
+  width: 1480px;
   height: 1000px;
   margin: 0 auto;
   overflow: hidden;
 }
 #stage_1 {
-  width: 1280px;
+  width: 1480px;
   height: 1000px;
   background-color: white;
 }
@@ -162,8 +162,8 @@ z: 0.2885916174204232 */
   position: absolute;
   display: none;
   height: auto;
-  top: 771px;
-  left: 993px;
+  top: 707px;
+  left: 1091px;
 
   border: none;
   z-index: 5;
@@ -246,7 +246,7 @@ img {
   height: 150px;
 }
 #object {
-  transform: translate(110px, 330px);
+  transform: translate(210px, 345px);
 }
 
 .btn-pointer,
@@ -257,7 +257,7 @@ img {
 .fill_text {
   position: absolute;
   top: 0;
-  width: 1000px;
+  width: 950px;
   height: 100px;
   background: #fff;
 }
@@ -266,13 +266,13 @@ img {
   width: 1480px !important;
   height: 1000px !important;
   margin: auto !important;
-  top: 30px;
+  /* top: 30px; */
 }
 #canvas {
   position: relative !important;
 }
 #button_pop_up {
-  height: 72px;
+  height: 70px;
 }
 @media screen and (max-width: 920px) {
   #stage_1 {
@@ -315,7 +315,7 @@ img {
 }
 @media screen and (max-width: 376px) {
 #stage_1 {
-    transform: scale(0.26473) !important;
+  transform: scale(0.56473) !important;
 }
 }
 
