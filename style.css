@@ -1,0 +1,153 @@
+
+@charset "UTF-8";
+
+/* @-ms-viewport { width: auto; initial-scale: 1; user-zoom: fixed; }
+@viewport { width: device-width; initial-scale: 1; user-zoom: fixed; } */
+
+html {
+    touch-action: none;
+    -ms-touch-action: none;
+}
+
+.refuseusel {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  -ms-content-zooming: none;
+  -ms-overflow-style: none;
+  /* */
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+body {
+  font-family: Osaka-等幅, 'ＭＳ ゴシック', 'MS Gothic', monospace;
+  padding: 0;
+  margin: 0 auto;
+  -webkit-touch-callout:none;  /*リンク長押しのポップアップを無効化*/
+  -webkit-user-select:none;  /*テキスト長押しの選択ボックスを無効化*/
+  overflow:hidden;
+}
+
+#stage_0 {
+
+  inset: 0px;
+    margin: auto;
+    position: absolute;
+  /* overflow: hidden; */
+}
+
+#stage_1 {
+  position: relative;
+  width: 1478px !important;
+  height: 998px !important;
+
+}
+
+/*--------- 上記共通 --------------*/
+
+/* 質問位置 */
+/* img{position: absolute; left: 5%; top: 5%; width: 30%;height: auto;z-index: 10;} */
+/* img{position: absolute; width: 40%;height: auto; left: 5px; z-index: 10;} */
+
+.question {
+    position: absolute;
+    top: 2%;
+    left: 5%;
+    /* width: 40vmax; */
+    height: auto;
+    z-index: 3;
+}
+
+
+#myCanvas{
+  /* overflow:hidden; */
+  position: absolute;
+  z-index: 4;
+
+}
+
+.btn {
+
+  position: absolute;
+
+  height: auto;
+  top: 599px;
+  left: 1165px;
+
+  border: none;
+  z-index: 5;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline: none;
+  -webkit-touch-callout:none;  /*リンク長押しのポップアップを無効化*/
+  -webkit-user-select:none;  /*テキスト長押しの選択ボックスを無効化*/
+}
+
+#redo:focus {
+outline:none;
+}
+#move:focus {
+outline:none;
+}
+#roll:focus {
+outline:none;
+}
+
+#btn_roll{
+position: relative;
+z-index: 55;
+}
+
+
+
+
+
+#appCanvas{
+
+  width: 100% !important;
+  height: 100% !important;
+  position: relative;
+
+    right: 75px;
+}
+
+
+#popup-content {
+width: 350px !important;
+  height: 150px;
+}
+
+g[id*="-disabled"] {
+cursor: default;
+}
+use[id*="-disabled"] {
+cursor: default;
+}
+
+#drag-popup {
+fill: white;
+  opacity: 0;
+  position: absolute;
+}
+#object {
+  transform: translate(240px, 260px);
+/* transform: translate(calc((1480px - 1000px)/2),calc((1000px - 350px)/2)); */
+}
+.close-rect {
+position: relative;
+top: 0;
+}
+
+
+.btn-pointer, .cursor-pointer {
+  cursor: pointer;
+}
+
+#divBody {
+  position: absolute !important;
+  z-index: -1;
+}

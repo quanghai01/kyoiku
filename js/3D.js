@@ -1772,12 +1772,12 @@ if (typeof Object.assign != "function") {
 })([Element.prototype, Document.prototype, DocumentFragment.prototype]);
 
 function touchHandler(event, ignoreEls) {
-    event.preventDefault();
-
     if (ignoreEls && (ignoreEls.indexOf($(event.target).attr("class")) > -1 || ignoreEls.indexOf($(event.target).attr("id")) > -1)) {
         console.log("ignore touch event");
         return;
     }
+
+    event.preventDefault();
     var touch = event.changedTouches[0];
 
     var simulatedEvent = document.createEvent("MouseEvent");
@@ -1806,10 +1806,11 @@ function touchHandler(event, ignoreEls) {
     touch.target.dispatchEvent(simulatedEvent);
 }
 
-function initDragEvent(ignoreEls) { 
+function initDragEvent(ignoreEls) {
+    console.log("initDragEvent");
     document.addEventListener(
         "touchstart",
-        function (e) {  
+        function (e) {
             return touchHandler(e, ignoreEls);
         },
         true
@@ -1821,7 +1822,6 @@ function initDragEvent(ignoreEls) {
         },
         true
     );
-
     document.addEventListener(
         "touchend",
         function (e) {
@@ -1836,32 +1836,294 @@ function initDragEvent(ignoreEls) {
         },
         true
     );
-
-
-    document.addEventListener(
-        "touchend",
-        function (e) {
-            return touchHandler(e, ignoreEls);
-        },
-        true
-    );
-    document.addEventListener(
-        "touchcancel",
-        function (e) {
-            return touchHandler(e, ignoreEls);
-        },
-        true
-    ); 
- 
-
 }
- 
+
+function roundDecimal2(x) {
+    var p = Math.pow(10, 2);
+
+    return Math.round(x * p) / p;
+}
+
+// https://www.geeksforgeeks.org/how-to-check-the-user-is-using-internet-explorer-in-javascript/
+function getBrowserType() {
+    var ua = window.navigator.userAgent;
+
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
+    if (msie > 0) {
+        // IE 10 or older => return version number
+        return CONST.BROWSER_TYPE.IE10; // parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+    }
+
+    var trident = ua.indexOf("Trident/");
+    if (trident > 0) {
+        // IE 11 => return version number
+        var rv = ua.indexOf("rv:");
+
+        return CONST.BROWSER_TYPE.IE11; // parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+    }
+
+    var edge = ua.indexOf("Edge/");
+    if (edge > 0) {
+        // Edge (IE 12+) => return version number
+        return CONST.BROWSER_TYPE.EDGE; // parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+    }
+
+    return CONST.BROWSER_TYPE.OTHERS;
+}
+
+function getIPadVersion() {
+    window.ondevicemotion = function (event) {
+        if (navigator.platform.indexOf("iPad") != -1) {
+            var version = 1;
+            if (event.acceleration) version += window.devicePixelRatio;
+
+            return version;
+        }
+        window.ondevicemotion = null;
+    };
+
+    return 0;
+}
+
+function getFrameRate() {
+    var browserType = getBrowserType();
+    var ipadVersion = getIPadVersion();
+    var frameRate;
+
+    switch (browserType) {
+        case CONST.BROWSER_TYPE.IE10:
+            g_browserLog = "Browser: < IE 10 " + ipadVersion;
+            frameRate = 20;
+            break;
+
+        case CONST.BROWSER_TYPE.IE11:
+            g_browserLog = "Browser: IE 11 " + ipadVersion;
+            frameRate = 20;
+            break;
+
+        case CONST.BROWSER_TYPE.EDGE:
+            g_browserLog = "Browser: Edge " + ipadVersion;
+            frameRate = 30;
+            break;
+
+        case CONST.BROWSER_TYPE.OTHERS:
+            g_browserLog = "Browser: Others " + ipadVersion;
+            frameRate = 40;
+            break;
+    }
+
+    g_msgLog = g_browserLog;
+    writeLog();
+
+    return frameRate;
+}
+
+function getNumberOfFrames() {
+    var browserType = getBrowserType();
+
+    switch (browserType) {
+        case CONST.BROWSER_TYPE.IE10:
+            return 60;
+
+        case CONST.BROWSER_TYPE.IE11:
+            return 70;
+
+        case CONST.BROWSER_TYPE.EDGE:
+            return 80;
+
+        case CONST.BROWSER_TYPE.OTHERS:
+            return 150;
+    }
+}
+
+function translateDxDy(selector, dx, dy) {
+    var els = $(selector);
+    for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        var matrix = $(el).attr("transform");
+        if (!matrix || matrix === "none") {
+            matrix = $(el).css("transform");
+        }
+        matrix = matrix
+            .replace(/[^0-9\s\-.,]/g, "")
+            .split(/[\s,]/)
+            .filter((x) => x !== "")
+            .map(function (m) {
+                return Number(m);
+            });
+
+        if (matrix.length === 1) {
+            matrix = [1, 0, 0, 1, 0, 0];
+        }
+
+        var x = matrix[12] || matrix[4] || matrix[0];
+        var y = matrix[13] || matrix[5] || matrix[1];
+
+        // cache origin transform x, y
+        if ($(el).attr("origin-matrix-x") === undefined) {
+            $(el).attr("origin-matrix-x", x);
+        }
+        if ($(el).attr("origin-matrix-y") === undefined) {
+            $(el).attr("origin-matrix-y", y);
+        }
+
+        // update transform x
+        [12, 4].forEach(function (m) {
+            if (matrix[m] !== undefined) {
+                matrix[m] += dx || 0;
+            }
+        });
+
+        // update transform y
+        [13, 5].forEach(function (m) {
+            if (matrix[m] !== undefined) {
+                matrix[m] += dy || 0;
+            }
+        });
+
+        $(el).css("transform", "matrix(" + matrix.join(",") + ")");
+        $(el).attr("transform", "matrix(" + matrix.join(",") + ")");
+    }
+}
+
+function resetTranslateOrigin(selector) {
+    var els = $(selector);
+    for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+
+        var matrix = $(el).attr("transform");
+
+        if (!matrix || matrix === "none") {
+            matrix = $(el).css("transform");
+        }
+
+        matrix = matrix
+            .replace(/[^0-9\s\-.,]/g, "")
+            .split(/[\s,]/)
+            .filter((x) => x !== "")
+            .map(function (m) {
+                return Number(m);
+            });
+
+        if (matrix.length === 1) {
+            matrix = [1, 0, 0, 1, 0, 0];
+        } else if (matrix.length === 2) {
+            matrix = [1, 0, 0, 1, ...matrix];
+        }
+
+        var x = matrix[12] || matrix[4] || matrix[0];
+        var y = matrix[13] || matrix[5] || matrix[1];
+
+        // get origin transform x, y
+        if ($(el).attr("origin-matrix-x") !== undefined) {
+            var dx = Number($(el).attr("origin-matrix-x"));
+            [12, 4].forEach(function (m) {
+                if (matrix[m] !== undefined) {
+                    matrix[m] = Number(dx);
+                }
+            });
+        }
+        if ($(el).attr("origin-matrix-y") !== undefined) {
+            var dy = Number($(el).attr("origin-matrix-y"));
+            [13, 5].forEach(function (m) {
+                if (matrix[m] !== undefined) {
+                    matrix[m] = Number(dy);
+                }
+            });
+        }
+
+        var matrixText = "matrix(" + matrix.join(",") + ")";
+
+        $(el).css("transform", matrixText).attr("transform", matrixText);
+    }
+}
 /********** autoResize.js ***************/
 var gData = {
     screenWidth: 1480,
     screenHeight: 1000,
 };
 
+// AutoResize();
+
+// function AutoResize() {
+//     //= === Auto resize ====
+//     $(window).on("load", function () {
+//         ResizeBody();
+//         if (g_state && g_state.is_init_canvas && onWindowResizeCanvas) onWindowResizeCanvas();
+//         if (fnCalculateSVGRatio) fnCalculateSVGRatio();
+//     });
+//     $(window)
+//         .resize(function () {
+//             setTimeout(function () {
+//                 ResizeBody();
+//                 if (fnCalculateSVGRatio) fnCalculateSVGRatio();
+//                 if (g_state && g_state.is_init_canvas && onWindowResizeCanvas) onWindowResizeCanvas();
+//             }, 200);
+//         })
+//         .trigger("resize");
+// }
+
+// var $baseContent;
+// var mTop;
+
+// if (!$baseContent) {
+//     $baseContent = $("#divBody");
+//     mTop = parseFloat($baseContent.css("top"));
+// }
+
+// function ResizeBody() {
+//     var ratio = gData.screenWidth / gData.screenHeight;
+//     var w = $(window).width();
+//     var h = $(window).height();
+//     var left = 0;
+//     var nWidth = w;
+//     var nHeight = h;
+
+//     if (w / h < ratio) {
+//         nHeight = w / ratio;
+//         mTop = (h - nHeight) / 2;
+//     } else {
+//         nWidth = h * ratio;
+//         mTop = 0;
+//         left = (w - nWidth) / 2;
+//     }
+
+//     $("svg:first").css({
+//         width: "100%",
+//         height: "100%",
+//     });
+//     $("#divBody").css({
+//         position: "relative",
+//         left: left,
+//         top: mTop,
+//         width: nWidth,
+//         height: nHeight,
+//         transform: "scale(1)",
+//     });
+
+//     var contentWidth = $baseContent[0].clientWidth;
+//     var contentHeight = $baseContent[0].clientHeight;
+//     var windowOuterHeight = $(window).outerHeight();
+
+//     var outerRate = window.innerHeight / windowOuterHeight;
+
+//     var windowWidth = window.innerWidth;
+//     var windowHeight = window.innerHeight;
+
+//     var userAgent = window.navigator.userAgent.toLowerCase();
+//     var isIphone = !!(userAgent.indexOf("iphone") > -1 && userAgent.indexOf("safari") > -1);
+
+//     var scale = Math.min(windowWidth / contentWidth, windowHeight / contentHeight);
+
+//     var newTop = 0;
+//     if (isIphone && outerRate < 1 && windowWidth > windowHeight) {
+//         newTop = mTop - (windowOuterHeight - window.innerHeight) / 2;
+//         $baseContent.css("top", `${newTop}px`);
+//         $baseContent.css({ transform: `scale(${scale})` });
+//         $(window).scrollTop(0);
+//     }
+// }
 const checkMobile = {
     Android: function () {
         return navigator.userAgent.match(/Android/i);
@@ -1888,7 +2150,7 @@ function Point3D(x, y, z) {
     this.y = y;
     this.z = z;
 }
-button_pop_up
+
 Point3D.prototype.plot2D = function () {
     return new Point2D(this.x, this.y);
 };

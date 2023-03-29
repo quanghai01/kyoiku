@@ -3,20 +3,18 @@
 */
 
 (function(global, $) {
-    
-
+    "use strict";
     $(function() {
         loadFFLSideBarConfigJs();
-
     });
 }(this, jQuery));
 
 var getFFLPostMessage = function() {
     // 親フレームからのツールバー選択状態情報の受信
     $(window).on('message', function(_evt) {
-        var arParam = typeof _evt.originalEvent.data == "string" ? _evt.originalEvent.data.split("[,]") : [];        if (arParam[0] === "FFLCOM_GET_SIDEBAR_CONFIG"){
-            window.parent.postMessage(`${"FFLCOM_POST_SIDEBAR_CONFIG"+"[,]"}${JSON.stringify(userApp_sidebar_config)}`,"*");
-            window.parent.postMessage("FFLCOM_GET_LEARNING_REC","*");
+        var arParam = _evt.originalEvent.data.split("[,]");
+        if (arParam[0] === "FFLCOM_GET_SIDEBAR_CONFIG"){
+            window.parent.postMessage("FFLCOM_POST_SIDEBAR_CONFIG"+"[,]"+JSON.stringify(userApp_sidebar_config),"*");
         }
     });
 };
@@ -42,7 +40,6 @@ var loadFFLSideBarConfigJs = function() {
             if ( head && script.parentNode ) {
                 head.removeChild( script );
             }
-
         }
     };
     

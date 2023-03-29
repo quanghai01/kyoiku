@@ -100,12 +100,12 @@ const initState = (info, openCB, closeCB) => {
                 minimum: 0.001,
                 value: 0,
                 info_bak: {
-                    width: 1050,
-                    height: 300,
-                    min_visible_x: 0.5 * 1050,
-                    min_visible_y: 0.5 * 300,
-                    init_x: 110,
-                    init_y: 430.16,
+                    width: 992,
+                    height: 232,
+                    min_visible_x: 0.5 * 992,
+                    min_visible_y: 0.5 * 232,
+                    init_x: 244,
+                    init_y: 330.16,
                 },
                 info,
                 fn_drag: function ({ value, eventName }) {
@@ -173,12 +173,6 @@ const initState = (info, openCB, closeCB) => {
                             isMeetBounding = true;
                             ty = scopeTy[0];
                             // console.log("meet bounding ty max");
-                        }
-                        if(ty<=-450) {
-                            ty=-450
-                        }
-                        if(ty>=450) {
-                            ty=450
                         }
 
                         getEl("#popup-content").attr("transform", `translate(${tx} ${ty})`);
@@ -594,6 +588,7 @@ $(document).ready(function () {
         let prev = { x: 0, y: 0 };
         let fnDrag = (event, isSnap, eventName, isKeepCheckDist) => {
             g_latestMousePress = ctrl.id || ctrl.class;
+            console.log("fnDrag", ctrl.name);
             event.stopPropagation();
 
             const [x0, x1] = ctrl.x_scope || [];
@@ -870,7 +865,8 @@ $(document).ready(function () {
     // applyControlChange(true);
 
     $(document).on("mouseup", async function (e) {
-        g_isMouseDown = false; 
+        g_isMouseDown = false;
+        console.log("g_latestMousePress mouseup", g_latestMousePress);
 
         let ctrl = g_state.controls.find((c) => c.id == g_latestMousePress || c.class == g_latestMousePress);
         if (ctrl) {
@@ -979,7 +975,9 @@ const applyControlChange = (isSkipCache) => {
     if (controlValues == controlValuesPrev && !isSkipCache) {
         return;
     }
-    controlValuesPrev = controlValues; 
+    controlValuesPrev = controlValues;
+
+    console.log("applyControlChange");
 };
 
 const openPopup = () => {
