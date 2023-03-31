@@ -42,6 +42,9 @@ const initState = (info, openCB, closeCB) => {
         is_show_log: false,
         is_init_canvas: false,
 
+        openCB: openCB,
+        closeCB: closeCB,
+
         menu: 1, // 1,  2, 3
         menu_item_selected: 3, // null, 1, 2, 3
         show_popup: false,
@@ -216,19 +219,19 @@ let g_isRenderingGraph = false;
 
 // ===== Template  =====
 
-window.addEventListener("mousemove", function (ev) {
-    ev.preventDefault ? ev.preventDefault() : (ev.returnValue = false);
-});
+// window.addEventListener("mousemove", function (ev) {
+//     ev.preventDefault ? ev.preventDefault() : (ev.returnValue = false);
+// });
 
-window.addEventListener(
-    "touchmove",
-    function (e) {
-        e.preventDefault();
-    },
-    {
-        passive: false,
-    }
-);
+// window.addEventListener(
+//     "touchmove",
+//     function (e) {
+//         e.preventDefault();
+//     },
+//     {
+//         passive: false,
+//     }
+// );
 
 function showElement(element, visible) {
     return $(element).css("visibility", visible ? "visible" : "hidden");
@@ -587,8 +590,8 @@ $(document).ready(function () {
 
         let prev = { x: 0, y: 0 };
         let fnDrag = (event, isSnap, eventName, isKeepCheckDist) => {
-            g_latestMousePress = ctrl.id || ctrl.class;
-            console.log("fnDrag", ctrl.name);
+            if (eventName != "mouseup") g_latestMousePress = ctrl.id || ctrl.class;
+            console.log("fnDrag", ctrl.name, eventName);
             event.stopPropagation();
 
             const [x0, x1] = ctrl.x_scope || [];
@@ -868,42 +871,97 @@ $(document).ready(function () {
         g_isMouseDown = false;
         console.log("g_latestMousePress mouseup", g_latestMousePress);
 
-        let ctrl = g_state.controls.find((c) => c.id == g_latestMousePress || c.class == g_latestMousePress);
-        if (ctrl) {
-            if (!ctrl.ignore_event_tracking) g_eventId += 1;
-            if (!ctrl.ignore_mouseup) {
-                if (ctrl.type == "button") {
-                    if (ctrl.is_group) {
-                        ctrl.value = "inactive";
-                        ctrl.value1 = ctrl.flow_member[ctrl.value1];
-                        ctrl.render();
-                    } else {
-                        ctrl.value = "disabled";
-                        ctrl.render();
+        let fn = () => {
+            let ctrl = g_state.controls.find((c) => c.id == g_latestMousePress || c.class == g_latestMousePress);
+            if (ctrl) {
+                if (!ctrl.ignore_event_tracking) g_eventId += 1;
+                if (!ctrl.ignore_mouseup) {
+                    if (ctrl.type == "button") {
+                        if (ctrl.is_group) {
+                            ctrl.value = "inactive";
+                            ctrl.value1 = ctrl.flow_member[ctrl.value1];
+                            ctrl.render();
+                        } else {
+                            ctrl.value = "disabled";
+                            ctrl.render();
+                        }
+
+                        if (ctrl.mouseup_immediately) ctrl.mouseup_immediately();
+
+                        // animateButtonEffect(
+                        //     `#${ctrl.id}-group`,
+                        //     false,
+                        //     function () {
+                        //         ctrl.value = "inactive";
+                        //         ctrl.render();
+
+                        //         if (ctrl.mouseup) ctrl.mouseup(e);
+                        //     },
+                        //     0
+                        // );
+                        if (ctrl.mouseup) ctrl.mouseup(e);
+                    } else if (ctrl.mouseup) ctrl.mouseup(e);
+                } else if (ctrl.type == "button" && ctrl.event_for_active_state) {
+                    ctrl.mouseup(e);
+                }
+            }
+
+            g_latestMousePress = "";
+            g_isPressMouse = false;
+
+            console.log("g_latestMousePress mouseup", g_latestMousePress);
+        };
+
+        if (g_latestMousePress == "" && g_state.show_popup) {
+            if (window.stage) {
+                window.stage._handlePointerDown(-1, e, e.clientX, e.clientX);
+                window.stage._handlePointerUp(-1);
+                setTimeout(() => {
+                    if (g_state.show_popup) {
+                        openPopup(false, true);
                     }
 
-                    if (ctrl.mouseup_immediately) ctrl.mouseup_immediately();
+                    g_latestMousePress = "";
+                }, 10);
+            } else {
+                var simulatedEvent = document.createEvent("MouseEvent");
+                simulatedEvent.initMouseEvent(
+                    "mousedown",
+                    true,
+                    true,
+                    window,
+                    1,
+                    e.screenX,
+                    e.screenY,
+                    e.clientX,
+                    e.clientY,
+                    false,
+                    false,
+                    false,
+                    false,
+                    0,
+                    null
+                );
 
-                    // animateButtonEffect(
-                    //     `#${ctrl.id}-group`,
-                    //     false,
-                    //     function () {
-                    //         ctrl.value = "inactive";
-                    //         ctrl.render();
+                let btn = $(".btn_control")
+                    .toArray()
+                    .find((x) => {
+                        let rect = $(x)[0].getBoundingClientRect();
 
-                    //         if (ctrl.mouseup) ctrl.mouseup(e);
-                    //     },
-                    //     0
-                    // );
-                    if (ctrl.mouseup) ctrl.mouseup(e);
-                } else if (ctrl.mouseup) ctrl.mouseup(e);
-            } else if (ctrl.type == "button" && ctrl.event_for_active_state) {
-                ctrl.mouseup(e);
+                        return e.clientX >= rect.x && e.clientX <= rect.x + rect.width && e.clientY >= rect.y && e.clientY <= rect.y + rect.height;
+                    });
+                if (btn) {
+                    btn.dispatchEvent(simulatedEvent);
+                }
+
+                if (g_state.show_popup) {
+                    g_latestMousePress = "close-popup";
+                    fn();
+                }
             }
+        } else {
+            fn();
         }
-
-        g_latestMousePress = "";
-        g_isPressMouse = false;
     });
 
     // setTimeout(() => {
@@ -980,9 +1038,12 @@ const applyControlChange = (isSkipCache) => {
     console.log("applyControlChange");
 };
 
-const openPopup = () => {
-    g_state.show_popup = true;
+const openPopup = (newValue, isCallback) => {
+    g_state.show_popup = newValue;
     getControl("btn-show-popup").render();
+
+    if (newValue && g_state.openCB) g_state.openCB();
+    else if (g_state.closeCB) g_state.closeCB();
 };
 
 // example
