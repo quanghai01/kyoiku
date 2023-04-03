@@ -50,8 +50,8 @@ const initState = (info, openCB, closeCB) => {
         show_popup: false,
         delete_mode: false,
 
-        screen_width: 1480,
-        screen_height: 1000,
+        screen_width: 1280,
+        screen_height: 960,
 
         controls: [
             // "btn-show-popup"
@@ -156,25 +156,25 @@ const initState = (info, openCB, closeCB) => {
                         let ty = ctrl.curPos.y - ctrl.offset.y + translate.top;
 
                         let isMeetBounding = false;
-                        if (tx > scopeTx[1]) {
+                        if (tx > scopeTx[1] + 100) {
                             isMeetBounding = true;
-                            tx = scopeTx[1];
+                            tx = scopeTx[1] + 100;
                             // console.log("meet bounding tx max");
                         }
-                        if (tx < scopeTx[0]) {
+                        if (tx < scopeTx[0] + 100) {
                             isMeetBounding = true;
-                            tx = scopeTx[0];
+                            tx = scopeTx[0] +100;
                             // console.log("meet bounding tx min");
                         }
 
-                        if (ty > scopeTy[1]) {
+                        if (ty > scopeTy[1] ) {
                             isMeetBounding = true;
-                            ty = scopeTy[1];
+                            ty = scopeTy[1] ;
                             // console.log("meet bounding ty min");
                         }
-                        if (ty < scopeTy[0]) {
+                        if (ty < scopeTy[0] ) {
                             isMeetBounding = true;
-                            ty = scopeTy[0];
+                            ty = scopeTy[0] ;
                             // console.log("meet bounding ty max");
                         }
 
@@ -356,7 +356,7 @@ let g_isPressMouse = false;
 let g_svgRatio = 1;
 
 let fnCalculateSVGRatio = () => {
-    g_svgRatio = getBoundingClientRect(getEl("#rect-bg")).width / 1480;
+    g_svgRatio = getBoundingClientRect(getEl("#rect-bg")).width / 1280;
     // console.log("g_svgRatio", g_svgRatio);
 };
 
