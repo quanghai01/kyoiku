@@ -578,6 +578,7 @@ var loadLocusLog = function(_locusLog){
     
 };
 
+
 var buttonSrc = {
 
     
@@ -587,7 +588,7 @@ var buttonSrc = {
   
 $(document).ready(function () {
     const buttonPopUp = document.getElementById("button_pop_up");
-    const buttonSurface = document.getElementById("button_surface");
+
   
     setTimeout(() => {
         // 1. init popup
@@ -609,10 +610,17 @@ $(document).ready(function () {
             },
             // open callback
             () => {
-                $(".btn").css({ "z-index": 0 });
+                $(".btn").css({ "z-index": 2 });
                 $("#appCanvas").css({ "z-index": 0 });
-                $("#svg_root_2").css({ "z-index": -1 });
-  
+
+                $("#divBody").css({ "z-index": 2 });
+                $(".unitWrap").css({ "z-index": 0 });
+                $(".slider").css({ "z-index": 0 });
+                $(".verticalLine").css({ "z-index": 0 });
+                $(".horizontalLine").css({ "z-index": 0 });
+                $(".graphTitle").css({ "z-index": 0 });
+                $(".unitLabelWrap").css({ "z-index": 0 });
+                
                 buttonPopUp.src = buttonSrc.PopUpOn;
     
             },
@@ -620,7 +628,15 @@ $(document).ready(function () {
             () => {
                 $(".btn").css({ "z-index": 3 });
                 $("#appCanvas").css({ "z-index": 1 });
-                $("#svg_root_2").css({ "z-index": 2 });
+
+                $("#divBody").css({ "z-index": -1 });
+                $(".unitWrap").css({ "z-index": 1 });
+                $(".slider").css({ "z-index": 99 });
+                $(".verticalLine").css({ "z-index": 90 });
+                $(".horizontalLine").css({ "z-index": 90 });
+                $(".graphTitle").css({ "z-index": 1 });
+                $(".unitLabelWrap").css({ "z-index":  90});
+
                 buttonPopUp.src = buttonSrc.PopUpNormal;
 
             }
@@ -631,7 +647,7 @@ $(document).ready(function () {
         let gEvent = "";
           $("#button_pop_up").on("mousedown", function () {
               gEvent = "button_pop_up";
-              g_latestMousePress = "button_pop_up";
+              g_latestMousePress = gEvent;
               g_state.show_popup = !g_state.show_popup;
           });
       
@@ -649,7 +665,7 @@ $(document).ready(function () {
                     break;
   
                 case "button_redo":
-   
+                    location.reload();
                     
                     break;
                 default:

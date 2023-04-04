@@ -8,7 +8,8 @@ body {
 }
 
 #appCanvas {
-    position: absolute;
+    /* position: absolute; */
+    position: relative;
     width: 100%;
     height: 100%;
 }
@@ -37,8 +38,10 @@ body {
 
 .restart {
     position: absolute;
-    right: 4%;
-    bottom: 7%;
+    
+    right: 0%;
+    bottom: -90%;
+
     z-index: 2144480000;
 }
 .restart:focus {
@@ -182,6 +185,10 @@ body {
     height: auto;
     -ms-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
+    -webkit-touch-callout: none;
+    /*リンク長押しのポップアップを無効化*/
+    -webkit-user-select: none;
+    /*テキスト長押しの選択ボックスを無効化*/
 }
 
 .graphTitle {
@@ -195,7 +202,11 @@ body {
     box-sizing: border-box;
     -ms-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
-    z-index: 2144480000;
+    z-index: 1;
+    -webkit-touch-callout: none;
+    /*リンク長押しのポップアップを無効化*/
+    -webkit-user-select: none;
+    /*テキスト長押しの選択ボックスを無効化*/
 }
 .graphTitleImg {
     position: relative;
@@ -206,6 +217,10 @@ body {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     vertical-align: top;
+    -webkit-touch-callout: none;
+    /*リンク長押しのポップアップを無効化*/
+    -webkit-user-select: none;
+    /*テキスト長押しの選択ボックスを無効化*/
 }
 
 .unitLabelWrap {
@@ -228,6 +243,10 @@ body {
     height: auto;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    -webkit-touch-callout: none;
+    /*リンク長押しのポップアップを無効化*/
+    -webkit-user-select: none;
+    /*テキスト長押しの選択ボックスを無効化*/
 }
 
 .unitWrap {
@@ -242,11 +261,16 @@ body {
     font-size: 1.2rem;
     text-align: right;
     box-sizing: border-box;
-    z-index: 2144480000;
+    z-index: 1;
     -moz-appearance: textfield;
     -ms-transform: translate(-100%, -50%);
     transform: translate(-100%, -50%);
+    
 }
+input::selection {
+    background-color: transparent;
+    /* color: black; */
+  }
 input[type=number].unitWrap::-webkit-inner-spin-button,
 input[type=number].unitWrap::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -309,4 +333,7 @@ input[type=number][readonly].unitWrap:focus {
     /*テキスト長押しの選択ボックスを無効化*/
   
     /* display:none; */
+  }
+  .cursor-pointer, #popup-content {
+    cursor: pointer;
   }
